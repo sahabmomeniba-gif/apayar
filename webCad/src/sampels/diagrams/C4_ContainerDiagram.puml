@@ -1,0 +1,81 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Container.puml
+!include C4_Stylesheet.puml
+
+' LAYOUT_TOP_DOWN()
+' LAYOUT_LEFT_RIGHT()
+' LAYOUT_AS_SKETCH()
+' LAYOUT_WITH_LEGEND()
+scale 2
+title Container Diagram for Cadastre System
+
+'Person(admin, Admin, "System Admin")
+Person(org_user, Org User, "کاربران داخل سازمان")
+Person(g2c, G2C User, "شهروندان")
+
+System_Ext(g2b, G2B System, "متخصصان نقشه‌برداری، کاربران دفاتر ثبت اسناد، دستگاه‌ها (GPS و ...)")
+System_Ext(org_system, "Internal Org System", "Systems like Shamim and Amlak")
+System_Ext(g2g, "G2G System", "دستگاه‌های اجرایی، امور اراضی، اموال دولتی (بند دال)")
+System_Ext(sso, "Single Sign-On", "")
+
+System_Boundary(cadastre_system, "Cadastre System") {
+    Container(nginx, "Web Server", "Static Files, Reverse Proxy, Load Balancing", "Nginx")
+    Container(application, "Application", "React", "Frontend")
+    ContainerDb(rdbms, "RDBMS", "PostgreSQL, Oracle, MSSQL")
+    ContainerDb(nosql, "NOSQL DB", "MongoDB")
+    Container(tiler, "Tiler", "Python / GDal / ECW", "Make tiles from aerial / sattelite images")
+    Container(api_server, "API Server", "NodeJS / PM2", "Backend Services")
+    Container(file_server, "File Server", "ext4 / samba", "Tiles / Images")
+    Container(log_management, "Log Management", "", "ELK")
+
+    Boundary(log_monitoring, "Communicates with all other containers") {
+       Container(monitoring, "Monitoring", "", "Zabbix or Prometheus")
+    }
+
+}
+' relation with other containers
+'Rel(geo_server, nosql, "Uses", "HTTPS")
+BiRel_Left(nginx, application, "Req/Res", "HTTP")
+Rel(api_server, rdbms, "Query", "SQL")
+
+Rel_Left(api_server, file_server, "Get aerial images Path, Get tiles")
+
+Rel_Up(api_server, log_management, "send log")
+Rel(nginx, log_management, "send log")
+Rel(api_server, nosql, "Query")
+'Rel_Up(tiler, api_server, "Send tiles")
+Rel(tiler, nosql, "Get files path")
+BiRel_Right(tiler, file_server, "Get aerial images, Write tiles")
+Rel_Down(nginx, api_server, "API Calls", "REST")
+'Rel_Right(geo_server, api_server, "Uses")
+
+'Rel_Up(log_monitoring, nginx, "Uses")
+'Rel(log_monitoring, geo_server, "Uses")
+'Rel_Left(log_monitoring, nosql, "Uses")
+' Rel_Up(log_monitoring, rdbms, "Uses")
+' Rel(log_monitoring, tiler, "Uses")
+' Rel_Up(log_monitoring, api_server, "Uses")
+' Rel(log_monitoring, pm2, "Uses")
+
+
+' relation with external users
+'Rel(admin, nginx, "Uses", "async, JSON/HTTPS")
+Rel(org_user, nginx, "درخواست اجرای فرایندهای کاداستر", "HTTPS")
+Rel(g2c, nginx, " ", "HTTPS")
+'Rel(g2c, nginx, "Uses", "sync, JDBC")
+
+' relation with external systems
+Rel(g2b, nginx, "ارسال نقشه", "REST")
+Rel(org_system, api_server, "درخواست اجرای فرایندهای کاداستر")
+Rel(api_server, org_system, "درخواست داده")
+Rel_Neighbor(g2g, api_server, "درخواست بارگذاری داده‌های مکانی", "REST")
+'Rel_Neighbor(sso, api_server, " ", "")
+'Rel(g2g, api_server, "درخواست بارگذاری داده‌های مکانی", "REST")
+BiRel(sso, api_server, " ", "")
+
+'Lay_Distance(sso, g2g, 2)
+
+SHOW_LEGEND()
+@enduml

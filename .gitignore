@@ -1,0 +1,46 @@
+# Dependencies (all projects)
+node_modules/
+
+# Build output and caches
+dist/
+build/
+coverage/
+*.tsbuildinfo
+.vite/
+.cache/
+
+# Generated TypeScript/Vite files
+vite.config.js
+vite.config.d.ts
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+webCad/sentinelapiKey.txt
+webCad/public/Cesium.js
+
+# Local Codex/agent state
+.codex/
+.agents/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

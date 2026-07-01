@@ -1,0 +1,1 @@
+export interface SubdivisionEdge{id:string;startNodeId:string;endNodeId:string;sourceLineIds:string[];sourceEntityIds:string[];layerName:string;length:number;angle:number;metadata:Record<string,unknown>}

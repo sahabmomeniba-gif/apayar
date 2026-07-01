@@ -1,0 +1,32 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+!include C4_Stylesheet.puml
+
+'LAYOUT_WITH_LEGEND()
+scale 5
+title System Context diagram for Cadastre System
+
+System(cadastre_system, "Cadastre System", "All real estate and any changes in them are registered in the Cadastral system.")
+
+'Person(admin, Admin, "System Admin")
+Person(org_user, Org User, "کاربران داخل سازمان")
+Person(g2c, G2C User, "شهروندان")
+
+System_Ext(g2b, G2B System, "متخصصان نقشه‌برداری، دفاتر ثبت اسناد، GPS")
+System_Ext(org_system, "Internal Org System", "Systems like Shamim and Amlak")
+System_Ext(g2g, "G2G System", "دستگاه‌های اجرایی، امور اراضی، مدیریت اموال و دارایی‌های دولت")
+System_Ext(sso, "Single Sign-On", "")
+
+Rel(g2g, cadastre_system, "ارسال نقشه امور اراضی، ارسال گواهی بند دال")
+Rel(cadastre_system, org_system, "الصاق فروعات")
+Rel(org_system, cadastre_system, "ثبت درخواست، اعلام فروعات")
+Rel_Neighbor(g2b, cadastre_system, "ارسال نقشه")
+'Rel(admin, cadastre_system, "مدیریت کاربران، مدیریت سیستم (فرایندها، فرمها، لایه‌ها...)")
+Rel(org_user, cadastre_system, "درخواست اجرای فرایندهای کاداستر")
+Rel(g2c, cadastre_system, "درخواست فرایندهای املاک")
+BiRel(sso, cadastre_system, " ", "")
+
+SHOW_LEGEND()
+@enduml

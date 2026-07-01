@@ -1,0 +1,83 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+!include C4_Stylesheet.puml
+
+'LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+scale 5
+title Component diagram for Cadastre system - API Server Container
+
+
+ContainerDb(rdbms, "RDBMS", "PostgreSQL, Oracle, MSSQL")
+ContainerDb(nosql, "NOSQL DB", "MongoDB")
+Container(nginx, "Web Server", "Static Files, Reverse Proxy, Load Balancing", "Nginx")
+Container(log_management, "Log Management", "", "ELK")
+Container(file_server, "File Server", "ext4 / samba", "Tiles / Images")
+
+
+
+System_Ext(org_system, "Internal Org System", "Systems like Shamim and Amlak")
+System_Ext(g2g, "G2G System", "دستگاه‌های اجرایی، امور اراضی، اموال دولتی (بند دال)")
+System_Ext(sso, "Single Sign-On", "")
+
+Container_Boundary(api_server, "API Server",) {
+    Component(bpms, "BPMS", "", "")
+    Component(user_management, "User Management", "Tech", "Post Processing ...")
+    Component(dbaas, "DBaaS", "", "Database As A Service")
+
+    Boundary(map, "Geo Components", "") {
+        Component(geo_data, Geo Data, "", "DEM, Raster Files, Google Cache")
+        Component(geo_conversion, Geo Conversion, "TMS, WMS, dxf, dwg, dgn, shape, gdb, GeoJson, svg, xls", "")
+        Component(geo_coding, Geo Coding, "", "On-Line Geo Coding Services through Internet Edge")
+'        Component(geo_process, Geo Process, "", "Boundary Detector")
+        Component(geo_process, Geo Process, "", "Boundary Detector, حدود اربعه, Mathematical & Geometrical Functions, TurfJs")
+        Component(raster_map_server, Raster Map Server, "", "TMS Tile Server, WMS Tile Server")
+        Component(vector_map_server, Vector Map Server, "Map Box", "Vector Tile, GeoJson")
+    }
+
+'    Boundary(core_router, Core and Router Components, "communicate with all other components") {
+        Component(router, "Router", "express")
+        Component(data_access, "Data Access", "ACL / CRUD")
+        Component(form_builder, "Form Builder", "")
+        Component(file_system, "File System", "")
+        Component(report_builder, "Report Builder", "")
+        Component(logger, "Logger", "")
+'    }
+}
+
+Rel_Up(file_server, map, " ", "")
+
+BiRel(dbaas, rdbms, "Read / Write", "SQL")
+BiRel_Right(dbaas, nosql, "Read / Write", "SQL")
+BiRel_Up(dbaas, data_access, "Read / Write", "")
+
+BiRel_Left(data_access, form_builder, "Read / Write", "")
+BiRel_Up(data_access, user_management, "Read / Write", "")
+BiRel_Up(data_access, file_system, "Read / Write", "")
+BiRel_Left(data_access, bpms, "Read / Write", "")
+BiRel_Left(data_access, report_builder, "Read / Write", "")
+
+BiRel(router, form_builder, "Req / Res", "")
+BiRel(router, user_management, "Req / Res", "")
+BiRel(router, file_system, "Req / Res", "")
+BiRel(router, bpms, "Req / Res", "")
+BiRel_Up(router, nginx, "Req / Res", "")
+BiRel(router, map, "Req / Res", "")
+BiRel(router, report_builder, "Req / Res", "")
+Rel_Left(router, logger, "Req / Res", "")
+
+
+BiRel(map, data_access, "Read / Write", "")
+
+BiRel(org_system, router, "", "")
+BiRel(g2g, router, "", "")
+Rel(log_management, logger, "", "")
+Rel_Down(logger, nosql, " ", "")
+
+BiRel(sso, router , " ", "")
+
+SHOW_LEGEND()
+@enduml

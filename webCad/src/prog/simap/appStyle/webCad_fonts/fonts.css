@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'B-Nazanin';
+    src: local('B-Nazanin'), url(./B-NAZANIN.TTF) format('truetype');
+  }
+  @font-face {
+    font-family: 'IRANSans';
+    src: local('IRANSans'), url(./FontsFree-Net-ir_sans.ttf) format('truetype');
+  }
+  @font-face {
+    font-family:'VazirـCode';
+    src: local('VazirـCode'), url(./Vazir-Code.ttf) format('truetype');
+    /* src: url('Vazir-Code.eot');
+    src: url('Vazir-Code.eot?#iefix') format('embedded-opentype'),
+         url('Vazir-Code.woff') format('woff'),
+         url('Vazir-Code.ttf') format('truetype');
+    font-weight: normal; */
+  }
+  
+  @font-face {
+    font-family: 'VazirـCodeـHack';
+    src: local('VazirـCodeـHack'), url(./Vazir-Code-Hack.ttf) format('truetype');
+    /* src: url('Vazir-Code-Hack.eot');
+    src: url('Vazir-Code-Hack.eot?#iefix') format('embedded-opentype'),
+         url('Vazir-Code-Hack.woff') format('woff'),
+         url('Vazir-Code-Hack.ttf') format('truetype'); */
+    font-weight: normal;
+  }
+  
+  pre, code {
+    font-family: 'VazirـCode', 'VazirـCodeـHack', monospaced;
+  }

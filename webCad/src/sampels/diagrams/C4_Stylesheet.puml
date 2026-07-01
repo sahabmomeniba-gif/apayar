@@ -1,0 +1,24 @@
+
+!$COLOR_PERSON = "#06b38e"
+!$COLOR_SYSTEM = "#0679b3"
+!$COLOR_ORANGE = "#e08214"
+!$COLOR_LIGHT_ORANGE = "#fdb863"
+!$COLOR_SKIN = "#fee0b6"
+!$COLOR_NEUTRAL = "#f7f7f7"
+!$COLOR_LIGHT_PURPLE = "#d8daeb"
+!$COLOR_PURPLE = "#b2abd2"
+!$COLOR_DARK_PURPLE = "#8073ac"
+!$COLOR_EXT_SYSTEM = "#a86a07"
+!$COLOR_EGGPLANT = "#2d004b"
+!$COLOR_BLACK = "#030000"
+'!$COLOR_REL_LINE = "#8073ac"
+'!$COLOR_REL_TEXT = "#8073ac"
+
+UpdateElementStyle("person", $bgColor=$COLOR_PERSON, $fontColor=$COLOR_NEUTRAL, $borderColor=$COLOR_SKIN, $shadowing="true")
+UpdateElementStyle("external_person", $bgColor=$COLOR_B_5, $fontColor=$COLOR_NEUTRAL, $borderColor=$COLOR_LIGHT_PURPLE)
+UpdateElementStyle("system", $bgColor=$COLOR_SYSTEM, $fontColor=$COLOR_NEUTRAL, $borderColor=$COLOR_LIGHT_ORANGE)
+UpdateElementStyle("external_system", $bgColor=$COLOR_EXT_SYSTEM, $fontColor=$COLOR_NEUTRAL, $borderColor=$COLOR_PURPLE)
+UpdateElementStyle("container", $bgColor=$COLOR_PURPLE, $fontColor=$COLOR_BLACK, $borderColor=$COLOR_BLACK)
+UpdateElementStyle("component", $bgColor=$COLOR_LIGHT_ORANGE, $fontColor=$COLOR_BLACK, $borderColor=$COLOR_BLACK)
+
+'UpdateRelStyle($lineColor=$COLOR_REL_LINE, $textColor=$COLOR_REL_TEXT)

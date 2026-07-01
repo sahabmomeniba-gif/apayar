@@ -1,0 +1,54 @@
+.cd-table-container{
+    background: #fff;
+    box-shadow: 1px 2px 26px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    max-width: 720px;
+  }
+  /* Table Design */
+  .cd-table{
+    width: 100%;
+    color: #666;
+    margin: 10px auto;
+    border-collapse: collapse;
+  }
+  
+  .cd-table tr,
+  .cd-table td{
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .cd-table th{
+    background: #017721;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  /* Search Box */
+  .cd-search{
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Search Title */
+  .cd-title{
+    color: #666;
+    margin: 15px 0;
+  }
+
+.commandMessage{
+  background-color: rgb(221, 214, 214);
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: 'B-Nazanin';
+  font-size: small;
+  font-weight: bold;
+  padding-right: 1em;
+}
+.commandInput{
+  background-color: white;
+  border: 1px solid white;
+  font-family: 'B-Nazanin';
+  font-size: small;
+}

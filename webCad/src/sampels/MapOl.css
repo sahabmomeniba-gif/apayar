@@ -1,0 +1,108 @@
+#map{
+    float:left;
+    width:100%;
+    height: inherit;
+    background-color: lightgray;
+}
+.overlay {
+    position: fixed !important; ;
+    display: none;
+    width: 20px;
+    height: 20px;
+    /*top: 0;*/
+    float:left;
+
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100000!important;
+    cursor: pointer;
+}
+.leaflet-control-layers-base{
+    text-align: left;
+    direction: ltr;
+}
+
+
+.mapAddPopupBtn{
+    border: none;
+    border-radius: 3px;
+    background: green;
+    color: white !important;
+    font-size: 13px;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.mapEditPopupBtn{
+    border: none;
+    border-radius: 3px;
+    background: green;
+    color: white !important;
+    font-size: 13px;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+.btn{
+    background: transparent;
+    border:0 !important;
+
+}
+.locationButton {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    padding: 5px;
+    z-index: 400;
+    background: white;
+    color: #6b6b6b;
+    border-radius: 5px;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+.PrintButton {
+    position: absolute;
+    top: 170px;
+    right: 10px;
+    padding: 5px;
+    z-index: 400;
+    background: white;
+    color: #6b6b6b;
+    border-radius: 5px;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+.helpButton{
+    position: absolute;
+    top: 134px;
+    right: 10px;
+    padding: 5px;
+    z-index: 400;
+    background: white;
+    color: blue;
+    border-radius: 5px;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+.mapTitle{
+    position: absolute;
+    width: 100%;
+    z-index: 888;
+    background: #3e5485;
+    color: #fff;
+    text-align: center;
+}
+.mapSyncButton{
+    position: absolute;
+    top: 130px;
+    right: 10px;
+    padding: 5px;
+    z-index: 400;
+    background: white;
+    color: #6b6b6b;
+    border-radius: 5px;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}

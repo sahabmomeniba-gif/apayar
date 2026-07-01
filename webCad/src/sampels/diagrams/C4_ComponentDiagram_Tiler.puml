@@ -1,0 +1,30 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+!include C4_Stylesheet.puml
+
+'LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+scale 5
+title Component diagram for Cadastre system - Tiler Container
+
+Container(file_server, "File Server", "ext4 / samba", "Tiles / Images")
+ContainerDb(nosql, "NOSQL DB", "MongoDB")
+
+Container_Boundary(tiler, "Tiler") {
+'    Component(manager, "Manager", "Rest Endpoint&Service", "Doing what?")
+    Component(single_image_tiler, "Single Image Tiler")
+    Component(merger, "Merger")
+'    Component(error_detector, "Error Detector", "Tech", "Post Processing ...")
+
+}
+
+Rel(single_image_tiler, nosql, "Get files path")
+Rel(file_server, single_image_tiler, "Read images", "samba")
+Rel_Left(single_image_tiler, merger, "send tiles")
+Rel(merger, file_server, "Write tiles")
+
+SHOW_LEGEND()
+@enduml

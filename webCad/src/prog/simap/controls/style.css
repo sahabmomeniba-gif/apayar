@@ -1,0 +1,152 @@
+.importDxf{
+    position: absolute;
+    top: 215px;
+    right: 5px;
+  }
+.position{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.drawLine{
+  position: absolute;
+  top:40px;
+  right:5px
+}
+.drawPolyLine{
+  position: absolute;
+  top:75px;
+  right:5px
+}
+.drawCircle{
+  position: absolute;
+  top:110px;
+  right:5px
+}
+.drawCircle3p{
+  position: absolute;
+  top:145px;
+  right:5px
+}
+.DrawTextControl{
+  position: absolute;
+  top:180px;
+  right:5px
+}
+.DrawLabel{
+  position: absolute;
+  top:5px;
+  right:5px
+}
+.positionSpan{
+  color:white;
+}
+.exportDxf{
+    position: absolute;
+    top: 250px;
+    right: 5px;
+  }
+.trim{
+  position: absolute;
+    top: 285px;
+    right: 5px;
+}
+.extend{
+  position: absolute;
+    top: 320px;
+    right: 5px;
+}
+.move{
+  position: absolute;
+    top: 355px;
+    right: 5px;
+}
+.rotate{
+  position: absolute;
+    top: 390px;
+    right: 5px;
+}
+.scale{
+  position: absolute;
+    top: 425px;
+    right: 5px;
+}
+.zoomToAll{
+  position: absolute;
+    top: 460px;
+    right: 5px;
+}
+.AbrotControlBtn{
+  position: absolute;
+  top: 495px;
+  right: 5px;
+}
+.FeatureControlBtn{
+  position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+.TextControlBtn{
+  position: absolute;
+    bottom: 5px;
+    left: 235px;
+}
+.SnapControlBtn{
+  position: absolute;
+    bottom: 5px;
+    left: 235px;
+}
+.LayerControlBtn{
+  position: absolute;
+    bottom: 5px;
+    left: 465px;
+}
+
+.my_file {
+    display: none;
+}
+.modifyColor{
+  border: 5px solid gold !important;
+}
+.fileColor{
+  border: 5px solid green !important;
+}
+.oprator{
+  border: 5px solid red !important;
+}
+.get_file {
+    background: #f9f9f9;
+    border: 3px solid #88c;
+    /* border-radius: 1px; */
+    cursor: pointer;
+    width: 100px;
+}
+.set_panel {
+  background: #f9f9f9;
+  border: 3px solid #88c;
+  /* border-radius: 1px; */
+  cursor: pointer;
+  width: 200px;
+}
+.set_abrot {
+  background: #f9f9f9;
+  border: 5px solid #88c;
+  border-radius: 1px;
+  cursor: pointer;
+  width: 100px;
+}
+.set_file {
+  background: #f9f9f9;
+  border: 5px solid rgb(253, 0, 0);
+  border-radius: 1px;
+  cursor: pointer;
+  width: 100px;
+}
+.set_label {
+  background: #f9f9f9;
+  border: 5px solid #88c;
+  border-radius: 1px;
+  cursor: pointer;
+  width: 100px;
+  font-family: sans-serif;
+}

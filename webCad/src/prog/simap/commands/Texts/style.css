@@ -1,0 +1,22 @@
+.wcs_cmsLabel{
+    /* background-color: gold; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.wcs_cmsLabel_item{
+    background-color: var(--wcs--modal--background);
+    flex-basis: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: var(--wcs--font-family);
+    font-size: var(--wcs--font-size-small);
+    padding-right: 0.5rem;
+    text-align: right;
+}

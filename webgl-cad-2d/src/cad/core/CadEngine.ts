@@ -1,0 +1,21 @@
+import { CadCamera } from './CadCamera';import { CadScene } from './CadScene';
+import type { Bounds,CadEntity,CadEntityInput,CadLayer,ToolName,Vec2 } from './types';
+import { CommandManager,type PointerInput } from '../commands/CommandManager';import { SnapManager,type SnapPoint } from '../snap/SnapManager';import { screenHitDistance } from '../utils/geometry';
+export interface EngineSnapshot{revision:number;selectedIds:string[];hoveredId?:string;cursor:Vec2;snap?:SnapPoint;tool:ToolName;message:string;measurement?:number}
+export class CadEngine{
+  scene=new CadScene;camera=new CadCamera;snapManager=new SnapManager;commands:CommandManager;selectedIds:string[]=[];hoveredId?:string;cursor:Vec2=[0,0];activeSnap?:SnapPoint;revision=0;listeners=new Set<()=>void>();activeLayerId='layer:0';
+  constructor(){this.commands=new CommandManager({snap:(p,o)=>this.snap(p,o),selectAt:(p,a)=>this.selectAt(p,a),pan:d=>{this.camera.pan(...d);this.changed();},zoomAt:(s,f)=>{this.camera.zoomAt(f,s);this.changed();},create:e=>this.create(e),removeSelection:()=>this.deleteSelection(),changed:()=>this.changed()});}
+  subscribe(fn:()=>void){this.listeners.add(fn);return()=>{this.listeners.delete(fn);};}changed(){this.revision++;this.listeners.forEach(f=>f());}
+  snapshot():EngineSnapshot{return{revision:this.revision,selectedIds:[...this.selectedIds],hoveredId:this.hoveredId,cursor:this.cursor,snap:this.activeSnap,tool:this.commands.state.tool,message:this.commands.state.message,measurement:this.commands.state.measurement};}
+  setSize(w:number,h:number){this.camera.setSize(w,h);}activate(t:ToolName){this.commands.activate(t);}
+  pointerMove(i:PointerInput){this.cursor=i.world;this.commands.pointerMove(i);if(this.commands.state.tool==='select')this.hoveredId=this.hit(i.screen,8)?.id;this.changed();}
+  pointerDown(i:PointerInput){if(i.button===1||i.button===2)this.commands.activate('pan');this.commands.pointerDown(i);}pointerUp(i:PointerInput){this.commands.pointerUp(i);}wheel(screen:Vec2,delta:number){this.camera.zoomAt(delta<0?1.15:1/1.15,screen);this.changed();}key(e:KeyboardEvent){this.commands.key(e);}
+  snap(p:Vec2,origin?:Vec2){const tolerance=12/this.camera.zoom,near=(e:CadEntity)=>e.bounds.minX-tolerance<=p[0]&&e.bounds.maxX+tolerance>=p[0]&&e.bounds.minY-tolerance<=p[1]&&e.bounds.maxY+tolerance>=p[1],expand=(e:CadEntity):CadEntity[]=>e.type==='block-reference'?e.children.flatMap(expand):[e];const es=this.scene.interactiveEntities().filter(e=>this.scene.layer(e.layerId)?.snapEnabled!==false).filter(near).flatMap(expand);this.activeSnap=this.snapManager.find(p,es,tolerance,origin);return this.activeSnap?.point||p;}
+  hit(screen:Vec2,tolerancePx:number){return this.scene.interactiveEntities().filter(e=>e.selectable).map(e=>({e,d:screenHitDistance(e,screen,p=>this.camera.worldToScreen(p),this.camera.zoom,tolerancePx)})).filter(x=>x.d<=tolerancePx).sort((a,b)=>a.d-b.d)[0]?.e;}
+  selectAt(screen:Vec2,add=false){const e=this.hit(screen,10);if(!e)this.selectedIds=[];else if(add)this.selectedIds=this.selectedIds.includes(e.id)?this.selectedIds.filter(x=>x!==e.id):[...this.selectedIds,e.id];else this.selectedIds=[e.id];this.changed();}
+  deleteSelection(){this.scene.remove(this.selectedIds);this.selectedIds=[];this.changed();}
+  create(e:CadEntityInput){const layer=this.scene.layer(this.activeLayerId)&&!this.scene.layer(this.activeLayerId)?.locked?this.activeLayerId:this.scene.layers.find(l=>!l.locked)?.id;if(!layer)return;this.scene.addEntity({...e,layerId:layer,bounds:{minX:0,minY:0,maxX:0,maxY:0}}as CadEntity);this.changed();}
+  fit(bounds=this.scene.bounds()){if(bounds)this.camera.fit(bounds);this.changed();}fitSelection(){const b=this.scene.bounds(this.scene.entities.filter(e=>this.selectedIds.includes(e.id)));if(b)this.fit(b);}resetView(){this.camera.center=[0,0];this.camera.zoom=1;this.changed();}zoomCenter(f:number){this.camera.zoomAt(f,[this.camera.width/2,this.camera.height/2]);this.changed();}
+  preview():Vec2[]{const s=this.commands.state;return s.cursor&&s.points.length?[...s.points,s.cursor]:[];}
+  load(entities:CadEntity[],layers:CadLayer[]){this.scene.clear();layers.forEach(l=>this.scene.addLayer(l));entities.forEach(e=>this.scene.addEntity(e));this.activeLayerId=layers[0]?.id||'layer:0';this.selectedIds=[];this.changed();this.fit();}
+}

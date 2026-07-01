@@ -1,0 +1,40 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+!include C4_Stylesheet.puml
+
+'LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+scale 5
+title Component Diagram for Web Cadastre System - Application Container
+
+Container(api_server, "API Server", "NodeJS / PM2", "Backend Services")
+Container(nginx, "Web Server", "Static Files, Reverse Proxy, Load Balancing", "Nginx")
+BiRel_Down(nginx, api_server, "Req/Res", "HTTP")
+Container_Boundary(application, "Application",) {
+    Component(api, "API", "", "CallAPI, Form, List, File, getPref")
+    Component(dashboard, "Dashboard", "", "Layout Designer, Charts")
+    Component(report, "Report", "", "Stimul Report Design, Stimul Report Render")
+    Component(map_ol, "MapOL", "", "Entity, Modify, Draw, Snap")
+    Component(dy_forms, "Dynamic Forms", "", "DyAdd, DyEdit, DyList, DyLayout, DyTab, DyStepper, DyMap, DyMapOL, File Manager")
+    Component(map, "Geo Components", "", "Layer Manager, Draw Tools, Measure Tools, Info, GeoCoding")
+    Component(cadastral_components, "Cadastral Components", "", "Hodud, A4Port, Appartment")
+    Component(process, "Bussiness Process", "", "designer, activity, task, cartable")
+    Component(static_pages, "Static Pages", "", "Main Bar & Menu, Group Management, Login, Organization Chart")
+}
+
+BiRel(api, nginx, "Req/Res", "HTTPS")
+Rel_Right(dashboard, dy_forms , " ", "")
+Rel_Up(dy_forms, api, " ", "")
+Rel_Left(report, api, " ", "")
+Rel_Right(map_ol, dy_forms, " ", "")
+Rel_Right(dy_forms, map, " ", "")
+Rel_Up(static_pages, api, " ", "")
+Rel_Right(cadastral_components, dy_forms , " ", "")
+Rel_Up(process, dy_forms, " ", "")
+Rel_Left(static_pages, dy_forms, " ", "")
+Rel_Up(static_pages, map, " ", "")
+SHOW_LEGEND()
+@enduml
