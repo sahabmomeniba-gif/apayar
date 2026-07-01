@@ -1,0 +1,14 @@
+{
+  "sourceCleanFile": "appfloor0-sample-clean.dxf",
+  "sourceOriginalFile": "appfloor0-sample.dxf",
+  "stats": {
+    "polygonCount": 27,
+    "groundTruthCount": 27,
+    "categoryMatchCount": 27,
+    "labelMatchCount": 27,
+    "unknownCount": 0
+  },
+  "mistakes": [],
+  "unknowns": [],
+  "confusions": []
+}

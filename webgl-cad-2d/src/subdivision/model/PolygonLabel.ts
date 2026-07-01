@@ -1,0 +1,4 @@
+export type PolygonCategory='outside_open_area'|'neighbor_property'|'street_or_alley'|'building_entrance'|'building_common'|'circulation'|'lobby'|'ramp'|'stair'|'elevator'|'unit_space'|'room'|'kitchen'|'wet_space'|'bathroom'|'toilet'|'utility_space'|'duct'|'parking'|'storage'|'terrace_balcony'|'yard'|'void_lightwell'|'structural_column'|'service_space'|'unknown';
+export interface PolygonTaxonomyLabel{id:string;rawName:string;normalizedName:string;aliases:string[];category:PolygonCategory;source:{table?:string;type?:string;code?:string|number;raw?:Record<string,unknown>};confidence:number;notes:string[]}
+export interface PolygonLabelTaxonomy{version:number;sources:string[];labels:PolygonTaxonomyLabel[];categories:{id:PolygonCategory;nameFa:string;kind:string}[]}
+export const normalizePersianLabel=(value:string)=>value.replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[\u200c\s]+/g,' ').replace(/^[\s،,:؛;._-]+|[\s،,:؛;._-]+$/g,'').trim();

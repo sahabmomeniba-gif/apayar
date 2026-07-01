@@ -1,1 +1,30 @@
-{"name":"webgl-cad-2d","private":true,"version":"0.1.0","type":"module","scripts":{"dev":"vite","build":"tsc -b && vite build","lint":"eslint .","preview":"vite preview"},"dependencies":{"dxf-parser":"^1.1.2","lucide-react":"^0.468.0","react":"^18.3.1","react-dom":"^18.3.1"},"devDependencies":{"@types/react":"^18.3.12","@types/react-dom":"^18.3.1","@vitejs/plugin-react":"^4.3.4","autoprefixer":"^10.4.20","postcss":"^8.4.49","tailwindcss":"^3.4.16","typescript":"~5.6.2","vite":"^6.0.5"}}
+{
+  "name": "webgl-cad-2d",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "taxonomy": "node scripts/generate-label-taxonomy.mjs",
+    "evaluate-labels": "node node_modules/esbuild/bin/esbuild scripts/evaluate-labeling.ts --bundle --platform=node --format=cjs --outfile=.label-evaluation.cjs && node .label-evaluation.cjs"
+  },
+  "dependencies": {
+    "dxf-parser": "^1.1.2",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "sources": [
+    "webCad/src/prog/simap/appStyle/sidebar/Labeling.js",
+    "webCad/src/prog/simap/entities/Cadastal/SeperationApratemanLabel.js",
+    "webCad/src/prog/simap/helpers/SpilitSeprationApartemanLabel.js",
+    "mdb_json_exports/mdb_export_1.json:OraUseCodes",
+    "appfloor0-sample.dxf"
+  ],
+  "encodedLabelFormat": {
+    "A": "OraUseCodes use-case code",
+    "G": "piece number",
+    "F": "secondary plaque",
+    "P": "primary plaque",
+    "S": "direction code",
+    "V": "cooler-channel share",
+    "K": "block",
+    "Q": "surface number",
+    "M": "easement rights",
+    "H": "has document"
+  },
+  "oldWebCadConventions": {
+    "apartmentLayer": "3",
+    "otherLayers": "4",
+    "apartmentColorIndex": 2,
+    "otherColorIndex": 6,
+    "commonQuickUseCases": ["آپارتمان", "داکت", "مغازه", "پارکینگ"]
+  },
+  "sampleGroundTruthUseCodes": [
+    {"code": 332, "label": "خیابان", "category": "street_or_alley"},
+    {"code": 119, "label": "عرصه ملک مجاور", "category": "neighbor_property"},
+    {"code": 218, "label": "سالن اجتماعات", "category": "building_common"},
+    {"code": 223, "label": "لابی", "category": "lobby"},
+    {"code": 286, "label": "راه پله مشاعی", "category": "stair"},
+    {"code": 276, "label": "رمپ", "category": "ramp"},
+    {"code": 200, "label": "حیاط مشاعی", "category": "yard"},
+    {"code": 123, "label": "آسانسور", "category": "elevator"},
+    {"code": 26, "label": "ورودی", "category": "building_entrance"},
+    {"code": 312, "label": "پارکینگ مسکونی", "category": "parking"},
+    {"code": 258, "label": "ستون", "category": "structural_column"}
+  ],
+  "rules": [
+    "Resolve encoded A use-case before evaluating ground truth.",
+    "Exterior polygons with broad contact to the building are street candidates; other exterior context polygons are neighbor-property candidates.",
+    "Repeated rotated rectangles must use rotation-invariant rectangularity before parking inference.",
+    "Very small repeated isolated polygons are structural columns, not ducts.",
+    "Repeated compact core polygons adjacent to common circulation are stair or elevator candidates.",
+    "Original DXF labels are evaluation-only and never prediction input."
+  ]
+}

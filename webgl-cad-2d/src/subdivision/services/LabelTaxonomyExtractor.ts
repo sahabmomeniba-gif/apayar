@@ -1,0 +1,2 @@
+import taxonomyJson from'../data/polygon-label-taxonomy.json';import type{PolygonLabelTaxonomy,PolygonTaxonomyLabel}from'../model/PolygonLabel';import{normalizePersianLabel}from'../model/PolygonLabel';
+export class LabelTaxonomyExtractor{load():PolygonLabelTaxonomy{return taxonomyJson as PolygonLabelTaxonomy}search(query:string,taxonomy=this.load()):PolygonTaxonomyLabel[]{const q=normalizePersianLabel(query);return taxonomy.labels.filter(l=>!q||[l.rawName,l.normalizedName,...l.aliases].some(x=>normalizePersianLabel(x).includes(q)));}}

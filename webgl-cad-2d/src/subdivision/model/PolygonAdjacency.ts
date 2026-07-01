@@ -1,0 +1,1 @@
+export interface PolygonAdjacency{polygonAId:string;polygonBId:string;sharedEdgeIds:string[];sharedLength:number;direction:number;isExteriorSide:boolean;isSmallContact:boolean;strength:'strong'|'weak'}
